@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+
+{% if user.is_student %}
+    <h2>Your Upcoming Sessions</h2>
+    <ul>
+        {% for session in upcoming_sessions %}
+            <li>{{ session.subject }} with {{ session.tutor }} on {{ session.scheduled_date }}</li>
+        {% empty %}
+            <li>No upcoming sessions.</li>
+        {% endfor %}
+    </ul>
+{% elif user.is_tutor %}
+    <h2>Your Upcoming Sessions</h2>
+    <ul>
+        {% for session in upcoming_sessions %}
+            <li>{{ session.subject }} with {{ session.student }} on {{ session.scheduled_date }}</li>
+        {% empty %}
+            <li>No upcoming sessions.</li>
+        {% endfor %}
+    </ul>
+    <p>Total Earnings: {{ total_earnings }}</p>
+{% endif %}
+{% endblock %}

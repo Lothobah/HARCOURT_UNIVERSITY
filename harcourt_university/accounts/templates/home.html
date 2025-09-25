@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>Welcome to Harcourt University</h1>
+
+<h2>Featured Tutors</h2>
+<ul>
+    {% for tutor in featured_tutors %}
+        <li>{{ tutor.user.get_full_name }} ({{ tutor.avg_rating|default:"No rating" }})</li>
+    {% empty %}
+        <li>No tutors found</li>
+    {% endfor %}
+</ul>
+
+<h2>Stats</h2>
+<p>Total Tutors: {{ stats.total_tutors }}</p>
+<p>Total Students: {{ stats.total_students }}</p>
+<p>Total Sessions: {{ stats.total_sessions }}</p>
+<p>Total Subjects: {{ stats.total_subjects }}</p>
+
+<h2>Recent Reviews</h2>
+<ul>
+    {% for review in recent_reviews %}
+        <li>{{ review.student.username }} rated {{ review.tutor.user.get_full_name }}: {{ review.rating }}/5</li>
+    {% empty %}
+        <li>No recent reviews.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
